@@ -1,0 +1,25 @@
+{% extends 'base/main.html' %}
+{% block content %}
+    <div class="header-bar">
+        <h1>Szczegóły Twojego leku</h1>
+        <a href="{% url 'medicines' %}">Powrót &#8594</a>
+    </div>
+
+    <div class="card-body">
+
+        <h1>Nazwa: {{ medicines }}</h1>
+        <div class="medicine-wrapper">
+            <a>
+                Godziny wzięcia: {{ medicines.time }}<br><br>
+                Jednorazowa dawka: {{ medicines.dose }}<br><br>
+                Liczba dostępnych dawek: {{ medicines.doses }}<br><br>
+                Notatka: {{ medicines.description }}</a>
+        </div>
+
+    </div>
+    <div class="header-bar">
+        {% if medicines.leaflet != '' %}
+            <a class="article-link, button" href="{{ medicines.leaflet }}">Ulotka</a>
+        {% endif %}
+    </div>
+{% endblock content %}

@@ -1,0 +1,25 @@
+{% extends 'base/main.html' %}
+{% block content %}
+    <div class="header-bar">
+        <h1>Spis dostępnych leków</h1>
+        <a href="{% url 'medicines' %}">Powrót &#8594</a>
+    </div>
+
+    <div id="search-wrapper">
+        <form method="GET" style="margin-top: 20px;display: flex;">
+            <input type='text' name="search-area" value="{{ search_input }}">
+            <input class="button" type="submit" value="Wyszukaj">
+        </form>
+    </div>
+
+    <div class="medicine-items-wrapper">
+        {% for medic in medicinesDatabase %}
+            <div class="medicine-wrapper">
+                <a class="button" href="{% url 'medicineDatabase' medic.id %}">{{ medic }}</a>
+            </div>
+        {% empty %}
+            <h3 style="color: red">Brak leku o podanej nazwie</h3>
+        {% endfor %}
+
+    </div>
+{% endblock content %}

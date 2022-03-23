@@ -1,0 +1,29 @@
+{% extends 'base/main.html' %}
+{% block content %}
+    <div class="header-bar">
+        <h1>Logowanie</h1>
+    </div>
+
+    <div class="card-body">
+        <form method="POST">
+            {% csrf_token %}
+
+            <label><b>Nazwa użytkownika</b></label>
+            {{ form.username }}
+
+            <label><b>Hasło</b></label>
+            {{ form.password }}
+
+            <input style="margin-top:10px ;" class="button" type="submit" value="Zaloguj">
+        </form>
+
+        <p>Nie masz konta? <a href="{% url 'register' %}">Zarejestruj</a></p>
+
+    </div>
+
+    <div class="header-bar">
+        <br>
+        <a style="margin-left:20px ;" class="button" href="{% url 'medicinesDatabase' %}">Spis leków</a>
+    </div>
+
+{% endblock content %}

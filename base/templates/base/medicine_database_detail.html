@@ -1,0 +1,29 @@
+{% extends 'base/main.html' %}
+{% block content %}
+    <div class="header-bar">
+        <h1>Szczegóły leku</h1>
+        <a href="{% url 'medicinesDatabase' %}">Powrót &#8594</a>
+    </div>
+
+    <div class="card-body">
+
+        <h1>Lek: {{ medicinesDatabase }}</h1>
+        <div class="medicine-wrapper">
+            <a>
+                <strong>Nazwa powszechnie stosowana:</strong>   {{ medicinesDatabase.name2 }}<br><br>
+                <strong>Moc:</strong>   {{ medicinesDatabase.power}}<br><br>
+                <strong>Postać farmaceutyczna:</strong>   {{ medicinesDatabase.form}}<br><br>
+                <strong>Substancja czynna: </strong>  {{ medicinesDatabase.active_substance}}<br><br>
+            </a>
+        </div>
+
+    </div>
+    <div class="header-bar">
+        {% if medicinesDatabase.leaflet != '' %}
+            <a class="article-link, button" href="{{ medicinesDatabase.leaflet }}">Ulotka</a>
+        {% endif %}
+    {% if medicinesDatabase.characteristics != '' %}
+            <a class="article-link, button" href="{{ medicinesDatabase.characteristics }}">Charakterystyka</a>
+        {% endif %}
+    </div>
+{% endblock content %}

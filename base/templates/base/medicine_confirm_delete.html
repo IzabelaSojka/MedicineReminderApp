@@ -1,0 +1,16 @@
+{% extends 'base/main.html' %}
+{% block content %}
+
+    <div class="header-bar">
+        <h3>Usuwanie leku z listy</h3>
+        <a href="{% url 'medicines' %}">Powrót &#8594</a>
+    </div>
+    <div class="card-body">
+        <form method="POST">
+            {% csrf_token %}
+            <p>Czy jesteś pewny, że chcesz usunąć ten lek z listy? "{{ medicines }}"</p>
+            <input class="button" type="submit" value="Usuń"/>
+
+        </form>
+    </div>
+{% endblock content %}

@@ -1,0 +1,88 @@
+<meta http-equiv="refresh" content="60">
+{% extends 'base/main.html' %}
+{% block content %}
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.6/firebase-app.js";
+        import { getMessaging, getToken, onMessage } from "https://www.gstatic.com/firebasejs/9.6.6/firebase-messaging.js";
+        const firebaseConfig = {
+            apiKey: "AIzaSyAJDi3BCXf5wwG2DznqSHwc4pweV9UTfl8",
+            authDomain: "djangoproject1-38221.firebaseapp.com",
+            databaseURL: "https://djangoproject1-38221-default-rtdb.europe-west1.firebasedatabase.app/",
+            projectId: "djangoproject1-38221",
+            storageBucket: "djangoproject1-38221.appspot.com",
+            messagingSenderId: "746569526452",
+            appId: "1:746569526452:web:ebcf8c50cc08a6320bbbe1",
+            measurementId: "G-0SYDDVQ6VP"
+        };
+        const app = initializeApp(firebaseConfig);
+        const messaging = getMessaging();
+
+        getToken(messaging, { vapidKey: 'BAhPrUJ-D8XWFaEhHDn6ZyCEW2y6-6dmPL7T_-mMTSokzhz4xlA14o9_hoNGKGtZjpHaIaFVO3TX2KGiJGS3Svs' }).then((currentToken) => {
+            if (currentToken) {
+                console.log(currentToken)
+            }
+            else {
+                console.log('No registration token available. Request permission to generate one.');
+        }
+        }).catch((err) => {
+              console.log('An error occurred while retrieving token. ', err);
+         });
+
+        onMessage(messaging,(payload) => {
+        console.log('Message received. ', payload);
+         });
+
+    </script>
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+        {% for msg in messages %}
+            swal("Lek dodany do listy");
+        {% endfor %}
+    </script>
+
+    <div class="header-bar">
+        <div>
+            <h1>Witaj {{ request.user|title }}</h1>
+        </div>
+        {% if request.user.is_authenticated %}
+            <a href="{% url 'logout' %}">Wyloguj</a>
+        {% else %}
+            <a href="{% url 'login' %}">Zaloguj</a>
+        {% endif %}
+    </div>
+
+    <h1></h1>
+    <a style="margin-top:20px ;" class="button" href="{% url 'medicines-add' %}">Dodaj lek</a>
+    <a style="margin-left:410px ;" class="button" href="{% url 'medicinesDatabase' %}">Spis</a>
+    <h1>Twoja lista leków:</h1>
+
+    <div class="medicine-items-wrapper">
+        {% for medic in medicines %}
+            <div class="medicine-wrapper">
+                <a class="button" href="{% url 'medicine' medic.id %}">{{ medic }}</a>
+                <a href="{% url 'medicines-edit' medic.id %}">Edytuj</a>
+                <a class="delete" href="{% url 'medicines-delete' medic.id %}">&#215;</a>
+                {%  if medic.notification1 == 1 %}
+                    <script type="text/javascript">
+                        new Notification("Musisz wziąć lek: " + "{{ medic }}",{
+                            body: "Dawka: " + "{{ medic.dose }}" ,
+                            icon: "https://static.ktomalek.pl/blog/zdjecie/leki-zagrozone-brakiem-dostepnosci-maj-2018.jpg",
+                        });
+                    </script>
+                {% endif %}
+                {%  if medic.notification2 == 1 %}
+                    <script type="text/javascript">
+                        new Notification("KONIEC LEKU: " + "{{ medic }}",{
+                            body: "Zostało mnije niż 5 dawek" ,
+                            icon: "https://static.ktomalek.pl/blog/zdjecie/leki-zagrozone-brakiem-dostepnosci-maj-2018.jpg",
+                        });
+                    </script>
+                {% endif %}
+            </div>
+        {% empty %}
+            <h3>Lista leków jest pusta</h3>
+        {% endfor %}
+    </div>
+
+{% endblock content %}

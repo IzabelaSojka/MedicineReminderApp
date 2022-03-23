@@ -1,0 +1,31 @@
+{% extends 'base/main.html' %}
+{% block content %}
+
+    <div class="header-bar">
+        <h1>Rejestracja</h1>
+    </div>
+
+    <div class="card-body">
+        <form method="POST">
+            {% csrf_token %}
+            <label><b>Nazwa użytkownika</b></label>
+            {{ form.username }}
+            WYMAGANE. Litery, cyfry, znaki: (@ . + - _)
+
+            <label><b>Hasło</b></label>
+            {{ form.password1 }}
+            <br>
+            -Nie może być podobne do nazwy użytkownika<br>
+            -Musi zawierać co najmniej 8 znaków<br>
+            -Nie może być często używane<br>
+            -Nie może się składać z samych cyfr<br>
+
+            <label><b>Powtórz hasło</b></label>
+            {{ form.password2 }}
+
+            <input style="margin-top:10px ;" class="button" type="submit" value="Zarejestruj">
+        </form>
+
+        <p>Masz już konto? <a href="{% url 'login' %}">Zaloguj</a></p>
+    </div>
+{% endblock content %}
