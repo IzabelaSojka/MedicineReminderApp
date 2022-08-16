@@ -1,10 +1,8 @@
-#Izabela Sójka WCY19IJ4S1
 from django.contrib import admin
 from .models import Medicine
 from .models import Medicine_Database
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin
-# Register your models here.
 
 class MedicineResource(resources.ModelResource):
 
