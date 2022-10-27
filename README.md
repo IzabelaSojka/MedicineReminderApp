@@ -16,4 +16,4 @@ the medicine by sending an e-mail and sending push notification.
 
 Additionally, the user can find any medicine and read its description and leaflet.
 
-![](https://github.com/IzabelaSojka/MedicineReminderApp/blob/main/png/Screenshot_9.png),(https://github.com/IzabelaSojka/MedicineReminderApp/blob/main/png/Screenshot_11.png)
+![](https://github.com/IzabelaSojka/MedicineReminderApp/blob/main/png/Screenshot_9.png)
